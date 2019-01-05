@@ -8,11 +8,13 @@
 #include <tuple>
 #include <iostream>
 
-#define $(a) myvm::_addr{(uint16_t)a}
+#define $(a) (uint16_t)a
 
 namespace myvm {
 	uint8_t memory[(0x1<<16)];
-        int16_t cpu_flags;
+
+        int16_t f;
+        constexpr auto Z = 0x01;
 
 	struct _addr {
 		uint16_t value;
@@ -96,9 +98,14 @@ namespace myvm {
 		}
 
 		void cpx(uint8_t val) {
-			cpu_flags |= (X.value == val);
+			f |= (X.value == val) << Z;
 		}
-		void bne()
+		#define bne(label)\
+		        if(!(f | Z))\
+		                goto label;
+                #define beq(label)\
+                        if(f | Z)\
+                                goto label;
 
 	}
 

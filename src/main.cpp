@@ -5,26 +5,92 @@
 
 using namespace myvm;
 using namespace myvm::instruction;
+using namespace myvm::debug;
 
-int main(){
-	setup();
-	ldx(0);
 
-	lda('H');
-	sta(wr_buff+X);
-	inx();
+int user_code() {
+	/*
+	        Your code here;
+	        Mostly based of 6502 assembly
 
-	lda('I');
-	sta(wr_buff+X);
-	inx();
+                Registers:
+                        A = main accumulator 8-bit
+                        X & Y = indexing     8-bit each
 
-	lda('!');
-	sta(wr_buff+X);
-	inx();
+                Addressing memory:
+                        use $(0xhex_number) ex: $(0x20)
+                        can use value of registers ex: $(0x30 + X) or $(X)
 
-	lda('\n');
-	sta(wr_buff+X);
+                Hello World
 
-	myvm::debug::debug_mem(wr_buff, X);
+                        lda('H');
+                        pra();
+                        lda('e');
+                        pra();
+                        lda('l');
+                        pra();
+                        lda('l');
+                        pra();
+                        lda('o');
+                        pra();
+                        lda('\n');
+                        pra();
+
+                Hello World - Memory IO & debugger & Using register X
+                        lda('H');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('e');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('l');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('l');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('o');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('\n');
+                        sta($(0x200 + X));
+                        debug_mem(0x200, 7);
+	 */
+
+                        lda('H');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('e');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('l');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('l');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('o');
+                        sta(($(0x200 +X)));
+                        inx();
+
+                        lda('\n');
+                        sta($(0x200 + X));
+                        debug_mem(0x200, 7);
+
+			return 0;
 }
 
+int main() {
+	setup();
+
+	return user_code();
+}
