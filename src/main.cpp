@@ -1,17 +1,18 @@
 #include "../include/instruction.h"
-
+#include "../include/assembler.h"
 #include <iostream>
 
+using namespace myvm;
+using namespace myvm::instruction;
 
 int main(){
-	myvm::Register rax = {"rax", 10};
-	myvm::Register rdi = {"rdi", 5};
+	setup();
 
-	myvm::Instruction add{"add", 0x1 , myvm::instruction::add};
+	adc('A'/2);
 
-	add.register_to_map();
+	sta(0x2ff);
 
-	add(rax, rdi);
+	adc($(0x2ff));
 
-	std::cout << std::hex << std::showbase << rax << std::endl;
+	std::cout << std::hex << A << std::endl;
 }
