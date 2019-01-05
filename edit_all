@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nano */*.h */*.cpp -l -S -Y c -i -E 

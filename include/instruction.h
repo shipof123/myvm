@@ -12,6 +12,7 @@
 
 namespace myvm {
 	uint8_t memory[(0x1<<16)];
+        int16_t cpu_flags;
 
 	struct _addr {
 		uint16_t value;
@@ -66,18 +67,39 @@ namespace myvm {
 			Y.value = A.value;
 		}
 
+		void ldx(uint8_t value) {
+			X.value = value;
+		}
+
+		void ldy(uint8_t value) {
+			Y.value = value;
+		}
 
 		void lda(uint8_t value) {
 			A.value = value;
 		}
 
-		void lda(uint16_t addr){
-			A.value = memory[addr];
+		void lda(struct _addr& addr){
+			A.value = memory[addr.value];
 		}
 
 		void sta(uint16_t addr) {
 			memory[addr] = A.value;
 		}
+
+		void pra() {
+			std::cout << A.value;
+		}
+
+		void prm(uint16_t addr) {
+			std::cout << memory[addr];
+		}
+
+		void cpx(uint8_t val) {
+			cpu_flags |= (X.value == val);
+		}
+		void bne()
+
 	}
 
 	void setup() {
@@ -85,6 +107,10 @@ namespace myvm {
 		X = {0x02, 0};
 		Y = {0x03, 0};
 	}
+
 }
 
 #endif
+
+
+

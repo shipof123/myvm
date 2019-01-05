@@ -1,18 +1,30 @@
 #include "../include/instruction.h"
-#include "../include/assembler.h"
-#include <iostream>
+#include "../include/debug.h"
+
+#define wr_buff 0x0f00
 
 using namespace myvm;
 using namespace myvm::instruction;
 
 int main(){
 	setup();
+	ldx(0);
 
-	adc('A'/2);
+	lda('H');
+	sta(wr_buff+X);
+	inx();
 
-	sta(0x2ff);
+	lda('I');
+	sta(wr_buff+X);
+	inx();
 
-	adc($(0x2ff));
+	lda('!');
+	sta(wr_buff+X);
+	inx();
 
-	std::cout << std::hex << A << std::endl;
+	lda('\n');
+	sta(wr_buff+X);
+
+	myvm::debug::debug_mem(wr_buff, X);
 }
+
